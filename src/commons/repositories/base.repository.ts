@@ -1,94 +1,86 @@
-import { PrismaService } from '../../config/prisma/prisma.service';
-import {
-  NotFoundError,
-  UniqueConstraintError,
-} from '../errors/repository.errors';
+import { NotFoundException } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
 
-export abstract class BasePrismaRepository<TDomain, TModel> {
-  constructor(protected readonly prisma: PrismaService) {}
+type DelegateKeys = {
+  [K in keyof PrismaClient]: PrismaClient[K] extends {
+    create?: any;
+    findUnique?: any;
+    update?: any;
+    delete?: any;
+  }
+    ? K
+    : never;
+}[keyof PrismaClient];
 
-  protected abstract get delegate(): any;
-  protected abstract toDomain(model: TModel): TDomain;
+export class BaseRepository<T extends { id: string }> {
+  constructor(
+    protected readonly prisma: PrismaClient,
+    protected readonly model: DelegateKeys,
+  ) {}
 
-  protected translateError(e: any): never {
-    if (e?.code === 'P2002') {
-      throw new UniqueConstraintError(e?.meta?.target);
-    }
-    if (e?.code === 'P2025') {
-      throw new NotFoundError();
-    }
-    throw e;
-  }
-
-  protected async _findUnique(args: any): Promise<TDomain | null> {
-    const m = await this.delegate.findUnique(args);
-    return m ? this.toDomain(m as TModel) : null;
-  }
-  protected async _findFirst(args: any): Promise<TDomain | null> {
-    const m = await this.delegate.findFirst(args);
-    return m ? this.toDomain(m as TModel) : null;
-  }
-  protected async _findMany(args: any = {}): Promise<TDomain[]> {
-    const list = await this.delegate.findMany(args);
-    return (list as TModel[]).map(this.toDomain.bind(this));
-  }
-  protected async _create(args: any): Promise<TDomain> {
-    try {
-      const m = await this.delegate.create(args);
-      return this.toDomain(m as TModel);
-    } catch (e) {
-      this.translateError(e);
-    }
-  }
-  protected async _update(args: any): Promise<TDomain> {
-    try {
-      const m = await this.delegate.update(args);
-      return this.toDomain(m as TModel);
-    } catch (e) {
-      this.translateError(e);
-    }
-  }
-  protected async _delete(args: any): Promise<void> {
-    try {
-      await this.delegate.delete(args);
-    } catch (e) {
-      this.translateError(e);
-    }
-  }
-  protected async _count(args: any = {}): Promise<number> {
-    return this.delegate.count(args);
+  private get delegate() {
+    return (this.prisma as any)[this.model];
   }
 
-  protected async _paginateOffset(args: {
-    where?: any;
-    orderBy?: any;
-    page?: number;
-    pageSize?: number;
-    select?: any;
-    include?: any;
-  }): Promise<{
-    items: TDomain[] | unknown[];
-    total: number;
-    page: number;
-    pageSize: number;
-    hasNext: boolean;
-  }> {
-    const page = Math.max(1, args.page ?? 1);
-    const pageSize = Math.max(1, Math.min(100, args.pageSize ?? 20));
-    const [rows, total] = await Promise.all([
-      this.delegate.findMany({
-        where: args.where,
-        orderBy: args.orderBy,
-        skip: (page - 1) * pageSize,
-        take: pageSize,
-        select: args.select,
-        include: args.include,
-      }),
-      this.delegate.count({ where: args.where }),
-    ]);
+  async create(data: unknown): Promise<T> {
+    return this.delegate.create({ data }) as Promise<T>;
+  }
 
-    const items = (rows as TModel[]).map(this.toDomain.bind(this));
+  async findById(
+    id: string,
+    select?: Record<string, boolean>,
+    include?: Record<string, any>,
+  ): Promise<T> {
+    const item = await this.delegate.findUnique({
+      where: { id },
+      select,
+      include,
+    });
 
-    return { items, total, page, pageSize, hasNext: page * pageSize < total };
+    if (!item)
+      throw new NotFoundException(`${String(this.model)} não encontrado`);
+
+    return item as T;
+  }
+
+  async count(filter?: Record<string, unknown>): Promise<number> {
+    return this.delegate.count({
+      where: filter,
+    } as any);
+  }
+
+  async findAll(
+    filter?: Record<string, unknown>,
+    orderBy: Record<string, 'asc' | 'desc'> = { createdAt: 'desc' },
+    select?: Record<string, boolean>,
+    include?: Record<string, boolean>,
+    skip?: number,
+    take?: number,
+  ): Promise<T[]> {
+    return this.delegate.findMany({
+      where: filter,
+      orderBy: orderBy,
+      include: include,
+      select: select,
+      skip: skip,
+      take: take,
+    }) as Promise<T[]>;
+  }
+
+  async update(id: string, data: unknown): Promise<T> {
+    return this.delegate.update({ where: { id }, data }) as Promise<T>;
+  }
+
+  async delete(id: string): Promise<T> {
+    return this.delegate.delete({ where: { id } }) as Promise<T>;
+  }
+
+  async findByField<K extends keyof T>(
+    field: K,
+    value: T[K],
+  ): Promise<T | null> {
+    return this.delegate.findFirst({
+      where: { [field]: value },
+    }) as Promise<T | null>;
   }
 }
