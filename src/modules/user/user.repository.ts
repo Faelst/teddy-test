@@ -8,4 +8,10 @@ export class UserRepository extends BaseRepository<User> {
   constructor(prisma: PrismaService) {
     super(prisma, 'user');
   }
+
+  findByEmail(email: string): Promise<User | null> {
+    return this.prisma.user.findUnique({
+      where: { email, deletedAt: null },
+    });
+  }
 }

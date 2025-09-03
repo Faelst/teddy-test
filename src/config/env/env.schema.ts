@@ -10,7 +10,6 @@ export const envSchema = z.object({
     .url()
     .transform((u) => u.replace(/\/$/, '')),
   DATABASE_URL: z.string().min(1, 'DATABASE_URL é obrigatório'),
-  JWT_SECRET: z.string().min(16, 'JWT_SECRET deve ter no mínimo 16 caracteres'),
   LOG_ENABLED: z.coerce.boolean().default(true),
   LOG_LEVEL: z
     .enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'])
@@ -24,6 +23,12 @@ export const envSchema = z.object({
   SENTRY_DSN: z.string().optional(),
   APP_NAME: z.string().default('teddy-test'),
   APP_VERSION: z.string().default('0.0.0'),
+  JWT_SECRET: z.string().min(16, 'JWT_SECRET deve ter no mínimo 16 caracteres'),
+  JWT_ACCESS_EXPIRATION: z.string().default('15m'),
+  JWT_REFRESH_SECRET: z
+    .string()
+    .min(16, 'JWT_REFRESH_SECRET deve ter no mínimo 16 caracteres'),
+  JWT_REFRESH_EXPIRATION: z.string().default('7d'),
 });
 
 export type EnvVars = z.infer<typeof envSchema>;

@@ -11,6 +11,7 @@
 - **Testes unitários:** implementação de testes para garantir a qualidade do código.
 - **Testes de integração:** garantir que os diferentes módulos da aplicação funcionem corretamente juntos.
 - **Testes end-to-end:** simular o comportamento do usuário para garantir que a aplicação funcione como um todo.
+- **Autenticação/Refresh Token:** implementação de autenticação baseada em tokens JWT, com suporte a refresh tokens.
 
 ## Features a Implementar
 

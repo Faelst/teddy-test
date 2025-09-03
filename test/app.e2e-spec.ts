@@ -47,8 +47,6 @@ describe('App (e2e) – info & metrics', () => {
     expect(typeof res.body.uptimeSec).toBe('number');
     expect(res.body.startedAt).toMatch(/Z$/);
     expect(res.body.now).toMatch(/Z$/);
-
-    // memory block presente
     expect(res.body.memoryMB).toEqual(
       expect.objectContaining({
         rss: expect.any(Number),

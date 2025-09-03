@@ -1,8 +1,8 @@
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import * as request from 'supertest';
-import { PrismaService } from '../../src/config/prisma/prisma.service';
-import { AppModule } from '../../src/modules/app/app.module';
+import { PrismaService } from '../../../src/config/prisma/prisma.service';
+import { AppModule } from '../../../src/modules/app/app.module';
 
 describe('Users (e2e) — create', () => {
   let app: INestApplication;

@@ -35,8 +35,16 @@ export class EnvService {
     return this.get<string>('JWT_SECRET');
   }
 
+  get jwtAccessExpiration(): string {
+    return this.get<string>('JWT_ACCESS_EXPIRATION') ?? '15m';
+  }
+
   get jwtRefreshSecret(): string {
     return this.get<string>('JWT_REFRESH_SECRET');
+  }
+
+  get jwtRefreshExpiration(): string {
+    return this.get<string>('JWT_REFRESH_EXPIRATION') ?? '7d';
   }
 
   get databaseUrl(): string {
