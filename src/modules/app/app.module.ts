@@ -9,6 +9,7 @@ import { JwtAuthGuard } from '../../commons/guards/jwt-auth.guard';
 import { AppService } from './app.service';
 import { MetricsModule } from '../metrics/metrics.module';
 import { UserModule } from '../user/user.module';
+import { UrlModule } from '../url/url.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UserModule } from '../user/user.module';
     AuthModule,
     MetricsModule,
     UserModule,
+    UrlModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: JwtAuthGuard }],

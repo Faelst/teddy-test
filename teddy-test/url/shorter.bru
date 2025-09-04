@@ -1,0 +1,18 @@
+meta {
+  name: shorter
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/url/shorten
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "url": "https://example.com/landing?utm=abc",
+    "alias": "Promo9"
+  }
+}

@@ -9,4 +9,6 @@ export const HTTP_EXCEPTIONS = {
     'JWT_REFRESH_TOKEN_INVALID',
     401,
   ),
+  SHORTEN_URL_INVALID: new HttpException('SHORTEN_URL_INVALID', 400),
+  SHORTEN_URL_CONFLICT: new HttpException('SHORTEN_URL_CONFLICT', 409),
 };
