@@ -29,6 +29,10 @@ export const envSchema = z.object({
     .string()
     .min(16, 'JWT_REFRESH_SECRET deve ter no mínimo 16 caracteres'),
   JWT_REFRESH_EXPIRATION: z.string().default('7d'),
+  RABBITMQ_URL: z.string().url().default('amqp://guest:guest@localhost:5672'),
+  RABBITMQ_QUEUE: z.string().default('url_hits'),
+  RABBITMQ_PREFETCH: z.coerce.number().min(1).default(50),
+  RABBITMQ_ENABLED: z.coerce.boolean().default(true),
 });
 
 export type EnvVars = z.infer<typeof envSchema>;

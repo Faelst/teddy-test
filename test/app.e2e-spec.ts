@@ -20,7 +20,7 @@ describe('App (e2e) – info & metrics', () => {
   });
 
   it('GET / should return app info payload', async () => {
-    const res = await request(app.getHttpServer()).get('/').expect(200);
+    const res = await request(app.getHttpServer()).get('/app-info').expect(200);
 
     expect(res.body).toMatchObject({
       name: 'teddy-test',

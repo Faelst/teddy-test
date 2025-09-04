@@ -12,6 +12,10 @@
 - **Testes de integração:** garantir que os diferentes módulos da aplicação funcionem corretamente juntos.
 - **Testes end-to-end:** simular o comportamento do usuário para garantir que a aplicação funcione como um todo.
 - **Autenticação/Refresh Token:** implementação de autenticação baseada em tokens JWT, com suporte a refresh tokens.
+- **Criação de link curto:** o usuário pode criar um link curto a partir de uma URL longa.
+- **Redirecionamento:** o link curto redireciona para a URL original.
+- **Criação de usuário:** o usuário pode se cadastrar na plataforma.
+- **Login de usuário:** o usuário pode fazer login na plataforma.
 
 ## Features a Implementar
 

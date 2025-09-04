@@ -7,6 +7,7 @@ import {
   MaxLength,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
+import { IsNotReserved } from '../../../commons/decorators/is-not-reserved.decorator';
 
 export class ShortenDto {
   @IsString()
@@ -21,9 +22,10 @@ export class ShortenDto {
   @IsOptional()
   @IsString()
   @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
-  @MaxLength(6, { message: 'alias must be at most 6 characters' })
-  @Matches(/^[A-Za-z0-9]+$/, {
-    message: 'alias may contain only letters and numbers',
+  @MaxLength(6)
+  @Matches(/^[A-Za-z0-9_-]+$/, {
+    message: 'alias may contain only letters, numbers, "_" or "-"',
   })
+  @IsNotReserved({ message: 'alias is reserved' })
   alias?: string;
 }

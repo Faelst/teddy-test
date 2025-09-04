@@ -7,7 +7,7 @@ import { IsPublic } from '../../commons/decorators/is-public.decorator';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
+  @Get('app-info')
   getInfo(): Record<string, unknown> {
     return this.appService.getInfo();
   }

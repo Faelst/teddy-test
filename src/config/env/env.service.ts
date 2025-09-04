@@ -78,4 +78,20 @@ export class EnvService {
   get sentryEnabled(): boolean {
     return this.get<boolean>('SENTRY_ENABLED') ?? false;
   }
+
+  get rabbitUrl() {
+    return this.get('RABBITMQ_URL');
+  }
+
+  get rabbitQueue() {
+    return this.get('RABBITMQ_QUEUE') || 'url_hits';
+  }
+
+  get rabbitPrefetch() {
+    return Number(this.get('RABBITMQ_PREFETCH') || 50);
+  }
+
+  get rabbitEnabled() {
+    return this.get<boolean>('RABBITMQ_ENABLED') ?? true;
+  }
 }

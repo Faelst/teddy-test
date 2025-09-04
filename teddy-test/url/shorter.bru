@@ -5,14 +5,14 @@ meta {
 }
 
 post {
-  url: {{base_url}}/url/shorten
+  url: {{base_url}}/api/url/shorten
   body: json
   auth: none
 }
 
 body:json {
   {
-    "url": "https://example.com/landing?utm=abc",
-    "alias": "Promo9"
+    "url": "https://google.com",
+    "alias": "api"
   }
 }

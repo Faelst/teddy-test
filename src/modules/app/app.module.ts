@@ -10,6 +10,8 @@ import { AppService } from './app.service';
 import { MetricsModule } from '../metrics/metrics.module';
 import { UserModule } from '../user/user.module';
 import { UrlModule } from '../url/url.module';
+import { BrokerModule } from '../../config/messager/broker.module';
+import { WorkerModule } from '../../config/messager/worker.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { UrlModule } from '../url/url.module';
     MetricsModule,
     UserModule,
     UrlModule,
+    BrokerModule,
+    WorkerModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: JwtAuthGuard }],
