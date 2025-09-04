@@ -9,6 +9,9 @@ import { NormalizeUrlHelper } from './helper/normalize-url.helper';
 import { RedirectController } from './redirect.controller';
 import { RedirectUseCase } from './use-cases/redirect.usecase';
 import { BrokerModule } from '../../config/messager/broker.module';
+import { ListMyUrlsUseCase } from './use-cases/list-my-urls.usecase';
+import { UpdateUrlUseCase } from './use-cases/update-url.usecase';
+import { DeleteUrlUseCase } from './use-cases/delete-url.usecase';
 
 @Module({
   imports: [BrokerModule],
@@ -25,6 +28,9 @@ import { BrokerModule } from '../../config/messager/broker.module';
     GenerateUniqueCodeHelper,
     UrlRepository,
     RedirectUseCase,
+    ListMyUrlsUseCase,
+    UpdateUrlUseCase,
+    DeleteUrlUseCase,
   ],
 })
 export class UrlModule {}

@@ -7,12 +7,16 @@ meta {
 post {
   url: {{base_url}}/api/url/shorten
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlY2IxOTc0Ni1lZDE2LTQ4NmItODNhYy0wOGMyMDE0NzU1NjYiLCJpYXQiOjE3NTcwMjQ4NjYsImV4cCI6MTc1NzAyNTc2NiwianRpIjoiZjdjMGEyOWMtYjQ5Ni00MGZmLTgyYmUtZWExOGYxM2U2NmZkIn0.fhocKNui7YrdzDYsk1YW7BAzoMboLlti8Tafvp-AQEE
 }
 
 body:json {
   {
     "url": "https://google.com",
-    "alias": "api"
+    "alias": "pro124"
   }
 }

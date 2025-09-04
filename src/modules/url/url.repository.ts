@@ -9,6 +9,36 @@ export class UrlRepository extends BaseRepository<Url> {
     super(prisma, 'url');
   }
 
+  async softDeleteById(id: string): Promise<void> {
+    await this.prisma.url.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    });
+  }
+
+  async updateById(id: string, data: Partial<Url>): Promise<Url> {
+    return this.prisma.url.update({
+      where: { id },
+      data,
+    });
+  }
+
+  async findManyByUser(
+    userId: string,
+    params: any,
+  ): Promise<{ items: Url[]; total: number }> {
+    const items = await this.prisma.url.findMany({
+      where: { userId, deletedAt: null },
+      ...params,
+    });
+
+    const total = await this.prisma.url.count({
+      where: { userId, deletedAt: null },
+    });
+
+    return { items, total };
+  }
+
   findByCode(code: string): Promise<Url | null> {
     return this.prisma.url.findUnique({
       where: { code, deletedAt: null },

@@ -49,4 +49,8 @@ afterAll(async () => {
   if (pg) {
     await pg.stop({ timeout: 10_000 });
   }
+
+  if (rmq) {
+    await rmq.stop({ timeout: 10_000 });
+  }
 });

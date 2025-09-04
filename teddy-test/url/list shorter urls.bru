@@ -1,0 +1,22 @@
+meta {
+  name: list shorter urls
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/url
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlY2IxOTc0Ni1lZDE2LTQ4NmItODNhYy0wOGMyMDE0NzU1NjYiLCJpYXQiOjE3NTcwMjYzMjksImV4cCI6MTc1NzAyNzIyOSwianRpIjoiYTViZTFhMDEtZWIxYy00ODA5LWE0ZjUtY2M2NWY1NjZjYWU2In0.tlfG1kfy8dU4t2hTpE7vHdaN9y1cvJqifT1w4cjJMR4
+}
+
+body:json {
+  {
+    "url": "https://google.com",
+    "alias": "api"
+  }
+}
