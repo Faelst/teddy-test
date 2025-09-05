@@ -16,18 +16,16 @@
 - **Redirecionamento:** o link curto redireciona para a URL original.
 - **Criação de usuário:** o usuário pode se cadastrar na plataforma.
 - **Login de usuário:** o usuário pode fazer login na plataforma.
+- **Update de URL:** o usuário pode atualizar suas URLs.
+- **Delete de URL:** o usuário pode deletar suas URLs.
+- **Alias customizado (vanity URL):** o dono escolhe o `code` (6 chars) se disponível, com filtro de palavrões.
 
 ## Features a Implementar
 
-- **Criação de link curto:** o usuário pode criar um link curto a partir de uma URL longa.
-- **Redirecionamento:** o link curto redireciona para a URL original.
-- **Contador de cliques:** o sistema conta quantas vezes o link curto foi acessado.
-- **Interface de administração:** visualização e gerenciamento dos links curtos criados.
-- **RabbitMQ:** ao realizar o redirecionamento, foi criado um worker para contabilizar os cliques.
+- **GitHub Actions:** integração com GitHub Actions para automação de testes e deploy.
 
 ## Quick wins (alto valor, baixo esforço)
 
-- **Alias customizado (vanity URL):** o dono escolhe o `code` (6 chars) se disponível, com filtro de palavrões.
 - **Expiração de link (`expiresAt`) e desativação manual (`disabledAt`):** sem apagar o histórico.
 - **Proteção por senha (hash no banco):** pede senha antes do redirect.
 - **QR Code do shortlink:** endpoint que serve PNG com cache.

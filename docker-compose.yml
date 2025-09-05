@@ -1,7 +1,11 @@
 version: '3.9'
+
+name: teddy-test
+
 services:
-  db:
-    image: postgres:16
+  postgres:
+    image: postgres:16-alpine
+    container_name: teddy-postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -9,20 +13,52 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - dbdata:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d teddy']
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
   rabbitmq:
     image: rabbitmq:3-management
-    ports:
-      - '5672:5672'
-      - '15672:15672'
+    container_name: teddy-rabbit
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    healthcheck:
+      test: ['CMD-SHELL', 'rabbitmq-diagnostics -q ping']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build:
+      context: .
+      target: local
+    container_name: teddy-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    env_file:
+      - .env.example
+    environment:
+      NODE_ENV: development
+      RUN_MIGRATIONS: 'true'
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/teddy?schema=public
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
+    ports:
+      - '3000:3000'
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://localhost:3000/health || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 12
 
 volumes:
-  dbdata:
-  rabbitmq_data:
-    driver: local
+  pg_data:
