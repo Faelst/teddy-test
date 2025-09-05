@@ -1,3 +1,66 @@
+# 🚀 Como iniciar o projeto (Docker)
+
+> Pré-requisitos: **Docker** e **Docker Compose** instalados.
+
+## 1) Clonar o repositório
+
+```bash
+git clone https://github.com/Faelst/teddy-test.git
+cd teddy-test
+```
+
+## 2) Subir os serviços com Docker
+
+```bash
+docker-compose up -d
+```
+
+## 3) Verificar se está rodando
+
+API: http://localhost:3000/app-info
+(A porta pode ser alterada via variável PORT no .env.)
+
+Ira exibir algo como:
+
+```json
+{
+  "name": "teddy-test",
+  "version": "0.0.0",
+  "env": "development",
+  "node": "v20.14.0",
+  "pid": 1,
+  "hostname": "localhost",
+  "startedAt": "2025-09-05T17:44:51.241Z",
+  "now": "2025-09-05T17:45:00.121Z",
+  "uptimeSec": 9,
+  "memoryMB": {
+    "rss": 112.9,
+    "heapTotal": 26.5,
+    "heapUsed": 21.9,
+    "external": 2.3
+  },
+  "http": {
+    "baseUrl": "http://localhost:3000",
+    "port": 3000
+  },
+  "observability": {
+    "metrics": {
+      "enabled": true,
+      "path": "/metrics"
+    },
+    "tracing": {
+      "enabled": true
+    },
+    "sentry": {
+      "enabled": true
+    }
+  },
+  "health": "ok"
+}
+```
+
+Seria uma rota de healthcheck, retornando informações básicas da aplicação.
+
 ## Features Implementadas
 
 - **Husky:** integração com Git para garantir qualidade de código durante os commits e pushs, para manter a consistência do código.
@@ -19,10 +82,9 @@
 - **Update de URL:** o usuário pode atualizar suas URLs.
 - **Delete de URL:** o usuário pode deletar suas URLs.
 - **Alias customizado (vanity URL):** o dono escolhe o `code` (6 chars) se disponível, com filtro de palavrões.
+- **GitHub Actions:** integração com GitHub Actions para automação de testes e deploy.
 
 ## Features a Implementar
-
-- **GitHub Actions:** integração com GitHub Actions para automação de testes e deploy.
 
 ## Quick wins (alto valor, baixo esforço)
 

@@ -1,0 +1,227 @@
+{
+  "name": "teddy-test",
+  "version": "1",
+  "items": [
+    {
+      "type": "http",
+      "name": "GET APP",
+      "seq": 2,
+      "request": {
+        "url": "http://localhost:3000/pro124",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "folder",
+      "name": "user",
+      "items": [
+        {
+          "type": "http",
+          "name": "create user",
+          "seq": 1,
+          "request": {
+            "url": "{{base_url}}/api/users",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"email\": \"fael_st@hotmail.com\",\n  \"password\": \"qwe@@123\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "auth",
+      "items": [
+        {
+          "type": "http",
+          "name": "login",
+          "seq": 1,
+          "request": {
+            "url": "{{base_url}}/api/auth/login",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"email\": \"fael_st@hotmail.com\",\n  \"password\": \"qwe@@123\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "url",
+      "items": [
+        {
+          "type": "http",
+          "name": "shorter",
+          "seq": 1,
+          "request": {
+            "url": "{{base_url}}/api/url/shorten",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"url\": \"https://google.com\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlY2IxOTc0Ni1lZDE2LTQ4NmItODNhYy0wOGMyMDE0NzU1NjYiLCJpYXQiOjE3NTcwMjQ4NjYsImV4cCI6MTc1NzAyNTc2NiwianRpIjoiZjdjMGEyOWMtYjQ5Ni00MGZmLTgyYmUtZWExOGYxM2U2NmZkIn0.fhocKNui7YrdzDYsk1YW7BAzoMboLlti8Tafvp-AQEE"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "list shorter urls",
+          "seq": 2,
+          "request": {
+            "url": "{{base_url}}/url",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"url\": \"https://google.com\",\n  \"alias\": \"api\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlY2IxOTc0Ni1lZDE2LTQ4NmItODNhYy0wOGMyMDE0NzU1NjYiLCJpYXQiOjE3NTcwMjYzMjksImV4cCI6MTc1NzAyNzIyOSwianRpIjoiYTViZTFhMDEtZWIxYy00ODA5LWE0ZjUtY2M2NWY1NjZjYWU2In0.tlfG1kfy8dU4t2hTpE7vHdaN9y1cvJqifT1w4cjJMR4"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "update",
+          "seq": 3,
+          "request": {
+            "url": "{{base_url}}/api/url/pro124",
+            "method": "PATCH",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"url\": \"https://google.com/123\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlY2IxOTc0Ni1lZDE2LTQ4NmItODNhYy0wOGMyMDE0NzU1NjYiLCJpYXQiOjE3NTcwMjYzMjksImV4cCI6MTc1NzAyNzIyOSwianRpIjoiYTViZTFhMDEtZWIxYy00ODA5LWE0ZjUtY2M2NWY1NjZjYWU2In0.tlfG1kfy8dU4t2hTpE7vHdaN9y1cvJqifT1w4cjJMR4"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "delete",
+          "seq": 4,
+          "request": {
+            "url": "{{base_url}}/api/url/pro124",
+            "method": "DELETE",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"url\": \"https://google.com\",\n  \"alias\": \"pro124\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlY2IxOTc0Ni1lZDE2LTQ4NmItODNhYy0wOGMyMDE0NzU1NjYiLCJpYXQiOjE3NTcwMjY3MTksImV4cCI6MTc1NzAyNzYxOSwianRpIjoiZWMzOGU1NjgtZmFiZi00MTVhLThiOTAtN2QyYTJkYjUxOTMxIn0.wsIEDxq9ag9VOzRKeunIy64Ryft4OQqMj2R-lncY-jQ"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "activeEnvironmentUid": "wZb0FFs0K05UocRAUiLU9",
+  "environments": [
+    {
+      "variables": [
+        {
+          "name": "base_url",
+          "value": "http://localhost:3000",
+          "enabled": true,
+          "secret": false,
+          "type": "text"
+        }
+      ],
+      "name": "local"
+    }
+  ],
+  "brunoConfig": {
+    "version": "1",
+    "name": "teddy-test",
+    "type": "collection",
+    "ignore": [
+      "node_modules",
+      ".git"
+    ]
+  }
+}

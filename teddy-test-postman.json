@@ -1,0 +1,202 @@
+{
+  "info": {
+    "name": "teddy-test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "bruno",
+      "event": []
+    },
+    {
+      "name": "GET APP",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3000/pro124",
+          "host": [
+            "localhost"
+          ],
+          "path": [],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "create user",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "description": "",
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": [],
+              "path": [],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"fael_st@hotmail.com\",\n  \"password\": \"qwe@@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "login",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "description": "",
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": [],
+              "path": [],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"fael_st@hotmail.com\",\n  \"password\": \"qwe@@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "url",
+      "item": [
+        {
+          "name": "shorter",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "description": "",
+            "url": {
+              "raw": "{{base_url}}/api/url/shorten",
+              "host": [],
+              "path": [],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://google.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "list shorter urls",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "",
+            "url": {
+              "raw": "{{base_url}}/url",
+              "host": [],
+              "path": [],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://google.com\",\n  \"alias\": \"api\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "update",
+          "event": [],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "description": "",
+            "url": {
+              "raw": "{{base_url}}/api/url/pro124",
+              "host": [],
+              "path": [],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://google.com/123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "delete",
+          "event": [],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "description": "",
+            "url": {
+              "raw": "{{base_url}}/api/url/pro124",
+              "host": [],
+              "path": [],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://google.com\",\n  \"alias\": \"pro124\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

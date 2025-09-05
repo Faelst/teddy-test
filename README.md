@@ -1,64 +1,99 @@
-# 🚀 URL Shortener API (NestJS + Prisma + RabbitMQ)
+# 🚀 Como iniciar o projeto (Docker)
 
-Este projeto é uma API para encurtamento de URLs construída com **NestJS**, utilizando **Prisma** como ORM, **RabbitMQ** para contagem assíncrona de acessos e **JWT** para autenticação segura.  
-Foi desenvolvido com foco em **qualidade de código**, **testabilidade** e **boas práticas de arquitetura**.
+> Pré-requisitos: **Docker** e **Docker Compose** instalados.
 
----
+## 1) Clonar o repositório
 
-## ✅ Features Implementadas
+```bash
+git clone https://github.com/Faelst/teddy-test.git
+cd teddy-test
+```
 
-- **Husky:** integração com Git para garantir qualidade de código durante os commits e pushs.
-- **Commitlint:** validação de mensagens de commit para seguir padrão _Conventional Commits_.
+## 2) Subir os serviços com Docker
+
+```bash
+docker-compose up -d
+```
+
+## 3) Verificar se está rodando
+
+API: http://localhost:3000/app-info
+(A porta pode ser alterada via variável PORT no .env.)
+
+Ira exibir algo como:
+
+```json
+{
+  "name": "teddy-test",
+  "version": "0.0.0",
+  "env": "development",
+  "node": "v20.14.0",
+  "pid": 1,
+  "hostname": "localhost",
+  "startedAt": "2025-09-05T17:44:51.241Z",
+  "now": "2025-09-05T17:45:00.121Z",
+  "uptimeSec": 9,
+  "memoryMB": {
+    "rss": 112.9,
+    "heapTotal": 26.5,
+    "heapUsed": 21.9,
+    "external": 2.3
+  },
+  "http": {
+    "baseUrl": "http://localhost:3000",
+    "port": 3000
+  },
+  "observability": {
+    "metrics": {
+      "enabled": true,
+      "path": "/metrics"
+    },
+    "tracing": {
+      "enabled": true
+    },
+    "sentry": {
+      "enabled": true
+    }
+  },
+  "health": "ok"
+}
+```
+
+Seria uma rota de healthcheck, retornando informações básicas da aplicação.
+
+## 4) Arquivos para API Client (Postman/Insomnia)
+
+Na pasta raiz do projeto, há um arquivo `teddy-test-postman.json` que pode ser importado no Postman ou Insomnia
+
+## Features Implementadas
+
+- **Husky:** integração com Git para garantir qualidade de código durante os commits e pushs, para manter a consistência do código.
+- **Commitlint:** validação de mensagens de commit.
 - **Lint Staged:** execução de linters apenas nos arquivos alterados.
 - **Prettier:** formatação de código consistente.
-- **Pino Logger:** integração com o **Pino** para logging eficiente e estruturado.
-- **Class Validator + ZOD:**
-  - `class-validator`: validação de dados recebidos pela API.
-  - `zod`: validação da estrutura de variáveis de ambiente (ENVs).
-- **Prisma:** ORM moderno com suporte a migrations, geração de client e tipagem completa.
-- **Test Containers:** uso de containers Docker para subir serviços isolados em testes (PostgreSQL e RabbitMQ).
-- **Testes unitários:** cobertura de regras de negócio e helpers.
-- **Testes de integração:** validação da comunicação entre módulos.
-- **Testes end-to-end:** simulação do fluxo real da aplicação.
-- **Autenticação/Refresh Token:** autenticação com **JWT** (access + refresh tokens).
-- **Criação de link curto:** encurtamento de URLs longas em códigos de até 6 caracteres.
-- **Redirecionamento:** acesso ao código redireciona para a URL original.
-- **Criação de usuário:** registro de novos usuários na plataforma.
-- **Login de usuário:** autenticação e emissão de tokens JWT.
-- **Update de URL:** usuário autenticado pode atualizar a URL de destino de seus links.
-- **Delete de URL:** exclusão lógica (soft delete) das URLs pelo dono.
-- **Alias customizado (vanity URL):** escolha de alias de até 6 caracteres (se disponível), com filtro de palavrões.
-- **GitHub Actions:** automação de testes e deploy.
+- **Pino Logger:** integração com o Pino para logging eficiente.
+- **Class Validator + ZOD:** validação de dados de entrada na API e validação de da estrutura de ENVs da aplicação.
+- **Prisma:** ORM para facilitar a interação com o banco de dados, com suporte a migrations e geração de client.
+- **Test Container:** utilização de containers Docker para isolar e testar serviços de forma eficiente. subindo serviços como PostgreSQL e RabbitMQ.
+- **Testes unitários:** implementação de testes para garantir a qualidade do código.
+- **Testes de integração:** garantir que os diferentes módulos da aplicação funcionem corretamente juntos.
+- **Testes end-to-end:** simular o comportamento do usuário para garantir que a aplicação funcione como um todo.
+- **Autenticação/Refresh Token:** implementação de autenticação baseada em tokens JWT, com suporte a refresh tokens.
+- **Criação de link curto:** o usuário pode criar um link curto a partir de uma URL longa.
+- **Redirecionamento:** o link curto redireciona para a URL original.
+- **Criação de usuário:** o usuário pode se cadastrar na plataforma.
+- **Login de usuário:** o usuário pode fazer login na plataforma.
+- **Update de URL:** o usuário pode atualizar suas URLs.
+- **Delete de URL:** o usuário pode deletar suas URLs.
+- **Alias customizado (vanity URL):** o dono escolhe o `code` (6 chars) se disponível, com filtro de palavrões.
+- **GitHub Actions:** integração com GitHub Actions para automação de testes e deploy.
 
----
+## Features a Implementar
 
-## 💡 Quick Wins (alto valor, baixo esforço)
+## Quick wins (alto valor, baixo esforço)
 
-- **Expiração de link (`expiresAt`) e desativação manual (`disabledAt`):** manter histórico sem excluir registros.
-- **Proteção por senha:** armazenamento hash no banco; senha exigida antes do redirecionamento.
-- **QR Code do shortlink:** endpoint que retorna PNG com cache do link encurtado.
-- **Tags nas URLs + listagem por tags:** organização simples dos links do usuário.
-- **Analytics básico:**
-  - contagem de cliques por dia,
-  - origem (`referer`),
-  - tipo de dispositivo (mobile/desktop).
-
----
-
-## 🛠️ Tecnologias principais
-
-- **Node.js (NestJS)**
-- **Prisma (PostgreSQL)**
-- **RabbitMQ**
-- **JWT (access + refresh)**
-- **Docker / Testcontainers**
-- **Husky + Commitlint + Lint Staged**
-- **Prettier / ESLint**
-- **Jest (unit, integration, e2e tests)**
-- **Pino Logger**
-
----
-
-## 📄 Licença
-
-Este projeto é disponibilizado exclusivamente para **avaliação técnica**.
+- **Expiração de link (`expiresAt`) e desativação manual (`disabledAt`):** sem apagar o histórico.
+- **Proteção por senha (hash no banco):** pede senha antes do redirect.
+- **QR Code do shortlink:** endpoint que serve PNG com cache.
+- **Tags nas URLs + listagem por tags:** organização simples para o usuário.
+- **Analytics básico:** cliques por dia, origem (`referer`) e device (mobile/desktop).
