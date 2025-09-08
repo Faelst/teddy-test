@@ -1,3 +1,6 @@
+📺 Vídeo explicativo de como rodar a aplicação e as tecnologias utilizadas:   
+[Assistir no OneDrive](https://1drv.ms/v/c/9f356062bdc96f9f/EfLiVSxSdf1FubS6RskMhgwBNPcZcjPj0XmVQm9WN7ES5Q)
+
 # 🚀 Como iniciar o projeto (Docker)
 
 > Pré-requisitos: **Docker** e **Docker Compose** instalados.
